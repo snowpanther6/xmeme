@@ -1,0 +1,17 @@
+.inputWidth{
+    width: 500px;
+}
+.cardBorder{
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(0, 71, 71);
+}
+.pointer{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 800px){
+    .inputWidth{
+        width: 300px;
+    }
+}
