@@ -80,4 +80,17 @@ router.post('/memes/:id',(req,res)=>{
     })
 })
 
+//delete request for deleting post
+router.delete('/memes/delete',(req,res)=>{
+    const reqId = req.body.id
+    User.findByIdAndDelete(reqId)
+    .then(data=>{
+        res.json({message:"post deleted"})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+
+})
+
 module.exports = router

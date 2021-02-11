@@ -10,6 +10,7 @@ function Meme() {
     const [oldname,setOldName] = useState("")
     const [toggle,setToggle] = useState(0)
     const [id,setId] = useState("")
+    const [togdel,setTogDel] = useState(1)
     useEffect(()=>{
         fetch('http://localhost:8081/memes')
         .then(res=>res.json())
@@ -19,7 +20,7 @@ function Meme() {
         .catch(err=>{
             console.log(err)
         })
-    },[name])
+    },[name,togdel])
 
     const postData = ()=>{
         fetch('http://localhost:8081/memes',{
@@ -93,6 +94,25 @@ function Meme() {
         }
     }
 
+    const postDelete = (idx)=>{
+        fetch("http://localhost:8081/memes/delete",{
+            method:"delete",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                id:idx
+            })
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            setTogDel(!togdel)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
     return (
         <div>
             <h1 className="text-center">XMeme Stream</h1>
@@ -139,6 +159,9 @@ function Meme() {
                                         <div className="card-body">
                                             <div className="text-end">
                                                 <i className="far fa-edit pointer" onClick={()=>getEdit(res._id)}></i>
+                                            </div>
+                                            <div className="text-end">
+                                                <i className="far fa-trash-alt pointer" onClick={()=>postDelete(res._id)}></i>
                                             </div>
                                             <h4 className="card-title">{res.name}</h4>
                                             <p className="card-text">
