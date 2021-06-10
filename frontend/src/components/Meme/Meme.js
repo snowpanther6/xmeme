@@ -11,6 +11,8 @@ function Meme() {
     const [toggle,setToggle] = useState(0)
     const [id,setId] = useState("")
     const [togdel,setTogDel] = useState(1)
+
+    //fetching all the memes
     useEffect(()=>{
         fetch('http://localhost:8081/memes')
         .then(res=>res.json())
@@ -22,6 +24,7 @@ function Meme() {
         })
     },[name,togdel])
 
+    //posting the meme
     const postData = ()=>{
         fetch('http://localhost:8081/memes',{
             method:"post",
@@ -46,6 +49,7 @@ function Meme() {
         })
     }
 
+    //fetching single meme
     const getEdit = (idx)=>{
         fetch(`http://localhost:8081/memes/${idx}`)
         .then(res=>res.json())
@@ -62,6 +66,7 @@ function Meme() {
         })
     }
 
+    // updating the meme
     const postEdit = ()=>{
         if(name===oldname){
             fetch(`http://localhost:8081/memes/${id}`,{
@@ -94,6 +99,7 @@ function Meme() {
         }
     }
 
+    //deleting the meme
     const postDelete = (idx)=>{
         fetch("http://localhost:8081/memes/delete",{
             method:"delete",
